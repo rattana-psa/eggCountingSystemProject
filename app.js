@@ -1,5 +1,13 @@
 var yearSelect = 0;
 
+var dataSum = 0;
+
+let listData = [];
+let listEgg0 = [];
+let listEgg1 = [];
+let listEgg2 = [];
+let listEgg3 = [];
+
 window.onload = function () {
 
     var today = new Date();
@@ -29,8 +37,6 @@ window.onload = function () {
     getTable(month);
 
 }
-
-var dataSum = 0;
 
 function saveOnClick() {
     var email = document.getElementById('email');
@@ -184,11 +190,9 @@ function time() {
     console.log(today);
 }
 
-let listData = [];
+function addToArray(nameList, obj) {
 
-function addToArray(obj) {
-
-    listData.push(obj);
+    nameList.push(obj);
     // console.log('after:', listData);
 }
 
@@ -237,34 +241,40 @@ async function getTable(month) {
     document.getElementById("table").innerHTML = "";
     document.getElementById("notiError").innerHTML = "";
     listData = [];
+    // listEgg0 = [];
+    // listEgg1 = [];
+    // listEgg2 = [];
+    // listEgg3 = [];
 
     refe = "countEgg/keep/" + yearSelect + '/';
     refData = refe + month;
     var firebaseRef = await firebase.database().ref(refData).get();
     console.log('refData: ', refData);
     let values = firebaseRef.toJSON();
-    var sumCount = 0;
-    console.log(month);
+
+    var sumVal = [];  //change from int to return array
+
+    console.log('getTable/values: ', values);
+    
     if (values) {
 
         if (month == 2) {
 
-            sumCount = creatObj(29, values, sumCount);
+            sumVal = creatObj(29, values);
 
         } else if (month == 4 || month == 6 || month == 9 || month == 11) {
 
-            sumCount = creatObj(30, values, sumCount);
+            sumVal = creatObj(30, values);
 
         } else {
 
-            sumCount = creatObj(31, values, sumCount);
+            sumVal = creatObj(31, values);
 
         }
 
-        sumCountShow = { name: 'sum', count: sumCount }
-        sumNo_0 = { name: 'sum', count: sumCount }
+        sumValShow = { name: 'sum', count: sumVal[0], 'egg no.0': sumVal[1], 'egg no.1': sumVal[2], 'egg no.2': sumVal[3], 'egg no.3': sumVal[4] }
         
-        addToArray(sumCountShow);
+        addToArray(listData, sumValShow);
         console.log('list:', listData);
         creatTable();
 
@@ -273,46 +283,58 @@ async function getTable(month) {
 
         document.getElementById("notiError").innerHTML = ("Don't Have Data in This Month");
 
-        // if (month == 2) {
-
-        //     sumCount = creatObj(29, [], 0);
-
-        // } else if (month == 4 || month == 6 || month == 9 || month == 11) {
-
-        //     sumCount = creatObj(30, [], 0);
-
-        // } else {
-
-        //     sumCount = creatObj(31, [], 0);
-
-        // }
-        // sumCountShow = { name: 'sum', count: 0 }
-        // addToArray(sumCountShow);
-        // creatTable();
     }
 
 }
 
-function creatObj(day, val, sumCount) {
-    values = val;
+function creatObj(day, val){ 
+    // values = val;
+    // console.log('creasObj/val: ', val);
+    
+    let sumNo0 = 0;
+    let sumNo1 = 0;
+    let sumNo2 = 0;
+    let sumNo3 = 0;   
+    let sumCount = 0;
+
     for (let i = 1; i <= day; i++) {
+
         const isAdded = false;
-        if (!values) {
-            obj = { date: i, count: 0 }
-            addToArray(obj);
+
+        if (!val) {
+            obj = { date: i, count: 0, 'egg no.0': 0, 'egg no.1': 0, 'egg no.2': 0, 'egg no.3': 0, }
+            addToArray(listData, obj);
             isAdded = true;
         }
+
         if(isAdded) return;
-        if (values[i] == undefined) {
-            obj = { date: i, count: 0 }
-            addToArray(obj);
+
+        if (val[i] == undefined) {
+
+            obj = { date: i, count: 0, 'egg no.0': 0, 'egg no.1': 0, 'egg no.2': 0, 'egg no.3': 0, }
+            addToArray(listData, obj);
+            
         } else {
-            obj = { date: i, count: values[i].sum }
-            sumCount += values[i].sum;
-            addToArray(obj);
+
+            obj = { date: i, count: val[i].sum , 'egg no.0': val[i].no0, 'egg no.1': val[i].no1, 'egg no.2': val[i].no2, 'egg no.3': val[i].no3, } //************************************************ */
+            
+            sumCount += val[i].sum;
+
+            sumNo0 += val[i].no0;
+            sumNo1 += val[i].no1;
+            sumNo2 += val[i].no2;
+            sumNo3 += val[i].no3;
+                        
+            addToArray(listData, obj);
+
         }
+
     }
-    return sumCount;
+
+    sumAll = [sumCount, sumNo0, sumNo1, sumNo2, sumNo3];
+    console.log('array-sumCount: ', sumAll);
+
+    return sumAll;
 }
 
 function changeYear(yr){
