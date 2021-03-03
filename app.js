@@ -4,7 +4,7 @@ window.onload = function () {
 
     var today = new Date();
     // var day = String(today.getDate());
-    var month = String(today.getMonth() + 1).padStart(2, '0');
+    var month = String(today.getMonth() + 1); //.padStart(2, '0');
     var year = today.getFullYear();
 
     yearSelect = year;
@@ -48,7 +48,7 @@ async function realtimeData() {
     
     const timeData = values.time.split('T');
     const date = timeData[0];
-    const time = timeData[1].split('.')[0];
+    const time = timeData[1]; //.split('.')[0];
 
     const egg_0 = values.no0;
     const egg_1 = values.no1;
@@ -69,7 +69,7 @@ async function realtimeData() {
 function saveData() {
     var today = new Date();
     var day = String(today.getDate());  //.padStart(2, '0');
-    var month = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var month = String(today.getMonth() + 1); //.padStart(2, '0'); //January is 0!
     var year = today.getFullYear();
 
     today = '/' + year + '/' + month + '/' + day;
@@ -177,7 +177,7 @@ function dropdown_click() {
 function time() {
     var today = new Date();
     var day = String(today.getDate());
-    var month = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var month = String(today.getMonth() + 1); //.padStart(2, '0'); //January is 0!
     var year = today.getFullYear();
 
     today = '/' + year + '/' + month + '/' + day;
