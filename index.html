@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <title>Counting Eggs</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- <link rel="stylesheet" type="text/css" href=https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css> -->
+  <!-- <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+
+  <!-- import Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+  <!--Bootsrap 4 CDN-->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+  <!--Fontawesome CDN-->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+    integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/e939980574.js" crossorigin="anonymous"></script>
+
+  <script type="text/javascript" src="app.js"></script>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+  <!-- FIREBASE source -->
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
+
+  <script>
+    // FIREBASE connect
+    var firebaseConfig = {
+      apiKey: "AIzaSyD3gqmcA7TKH06kFSSK0qjAUwuuciyZ2Nk",
+      authDomain: "rsp-test-57d63.firebaseapp.com",
+      databaseURL: "https://rsp-test-57d63.firebaseio.com",
+      projectId: "rsp-test-57d63",
+      storageBucket: "rsp-test-57d63.appspot.com",
+      messagingSenderId: "1020215493706",
+      appId: "1:1020215493706:web:8e7ec4a40a65ee663f12b3",
+      measurementId: "G-2V4Q6NB61H"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+    var database = firebase.database();
+
+  </script>
+
+  <div class="container pt-4 d-flex flex-column min-vh-100">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs bg-light" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active text-success" data-toggle="tab" href="#today">Today</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-success" data-toggle="tab" href="#history">History</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-success" data-toggle="tab" href="#contact">Contact</a>
+      </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content pb-5 flex-fil">
+
+      <div id="today" class="container tab-pane active pt-5 "><br>
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <div class="row">
+                <div class="col-8 col-sm-8">
+                  <br><br>
+                  <h1 class="display-3 text-center">Counting Eggs</h1>
+                  <h1 class="display-1 text-center" id="showDataRealtime">0</h1>
+                  <h4 class="text-center" id="showTime">Date : dd-mm-yyyy Time : 00:00:00</h4>
+                  <div class="text-center pt-4">
+                    <button type="button" class="btn btn-outline-danger btn-lg" id="buttonSave" data-toggle="modal"
+                      data-target="#myModal">Finish Day</button>
+                  </div>
+                </div>
+                <div class="col-4 col-sm-4 align-self-center border-left">
+                  <div class="ml-4">
+                    <h1 class="display-3">Size</h1>
+                    <h2 id="showEgg_0" class="font-weight-normal">NO.0 : 0</h2>
+                    <h2 id="showEgg_1" class="font-weight-normal">NO.1 : 0</h2>
+                    <h2 id="showEgg_2" class="font-weight-normal">NO.2 : 0</h2>
+                    <h2 id="showEgg_3" class="font-weight-normal">NO.3 : 0</h2>
+                  </div>
+                </div>
+              </div><br><br>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- The Modal input password -->
+      <div class="modal fade" id="myModal">
+
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Save Data Today</h4>
+              <button type="button" onclick="clearField('pwd'),clearText('wrongPassword')" class="close"
+                data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+
+              <div class="input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-key"></i></span>
+                </div>
+                <input type="password" class="form-control" placeholder="password" name="pwd" id="pwd"
+                  onfocus="this.value=''">
+              </div>
+
+              <p class="text-danger text-center" id="wrongPassword"></p>
+
+              <div class="d-flex justify-content-center">
+                <!-- <a href="modalForgotPassword">forgot password?</a> -->
+                <button type="button" class="btn btn-link" id="buttonSave" data-toggle="modal" data-dismiss="modal"
+                  data-target="#modalForgotPassword">forgot password?</button>
+              </div>
+
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <div class="mr-auto" >
+                <p class="text-danger">*after saving data will be reset</p>
+              </div>
+              <div >
+                <button type="button" class="btn btn-outline-primary" onclick="signIn(),clearField('pwd')">Submit</button>
+                <button type="button" class="btn btn-outline-dark" data-dismiss="modal"
+                  onclick="clearField('pwd'),clearText('wrongPassword')">Cancel</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- The Modal forgot password -->
+      <div class="modal fade" id="modalForgotPassword">
+
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Forgot Password</h4>
+              <button type="button" class="close" data-dismiss="modal"
+                onclick="clearField('inputMail'),clearText('wrongEmail')">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+
+              <div class="input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                </div>
+                <input type="email" class="form-control" placeholder="Please Enter E-mail" name="mail" id="inputMail"
+                  onfocus="this.value=''">
+              </div>
+
+              <p class="text-danger text-center" id="wrongEmail"></p>
+
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-primary" onclick="checkEmail(),clearField('inputMail')">Send
+                Email</button>
+              <button type="button" class="btn btn-outline-dark" data-dismiss="modal"
+                onclick="clearField('inputMail'),clearText('wrongEmail')">Cancel</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- div-4 -->
+      <div id="history" class="container tab-pane fade"><br>
+
+        <!-- div-3 -->
+        <div class="container">
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-success" onclick="changeYear(2020)">2020</button>
+            <button type="button" class="btn btn-success" onclick="changeYear(2021)">2021</button>
+          </div>
+
+          <br><br>
+
+          <div class="dropdown pb-3">
+
+            <label for="dropdownMonth" id="yearSelected">select month : </label>
+
+            <button id="dropdownMonth" class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              MONTH
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMonth" id="dropdownMenu">
+              <button class="dropdown-item" type="button" id="month1"
+                onclick="getTable(1),showName('January')">January</button>
+              <button class="dropdown-item" type="button" id="month2"
+                onclick="getTable(2),showName('February')">February</button>
+              <button class="dropdown-item" type="button" id="month3"
+                onclick="getTable(3),showName('March')">March</button>
+              <button class="dropdown-item" type="button" id="month4"
+                onclick="getTable(4),showName('April')">April</button>
+              <button class="dropdown-item" type="button" id="month5" onclick="getTable(5),showName('May')">May</button>
+              <button class="dropdown-item" type="button" id="month6"
+                onclick="getTable(6),showName('June')">June</button>
+              <button class="dropdown-item" type="button" id="month7"
+                onclick="getTable(7),showName('July')">July</button>
+              <button class="dropdown-item" type="button" id="month8"
+                onclick="getTable(8),showName('August')">August</button>
+              <button class="dropdown-item" type="button" id="month9"
+                onclick="getTable(9),showName('September')">September</button>
+              <button class="dropdown-item" type="button" id="month10"
+                onclick="getTable(10),showName('October')">October</button>
+              <button class="dropdown-item" type="button" id="month11"
+                onclick="getTable(11),showName('November')">November</button>
+              <button class="dropdown-item" type="button" id="month12"
+                onclick="getTable(12),showName('December')">December</button>
+            </div>
+
+            <p id="nameMonth" class="text-center"></p>
+            <p id="notiError" class="text-center"></p>
+          </div>
+
+          <!-- Table -->
+          <div class="container">
+            <div class="row">
+              <div class="col-3"></div>
+              <div class="col">
+                <table class="table table-striped text-center" id="table"></table>
+              </div>
+              <div class="col-3"></div>
+            </div>
+          </div>
+
+        </div>
+        <!-- div-3 -->
+
+      </div>
+      <!-- div-4 -->
+
+      <!-- page 'CONTACT' -->
+      <div id="contact" class="container tab-pane fade" class="container section-ourTeam">
+
+        <div class="row">
+
+          <!-- section 'AUI' -->
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="row section-success ourTeam-box text-center">
+              <div class="col-md-12 section1">
+                <img src="aui.png">
+              </div>
+              <div class="col-md-12 section2">
+                <p>Rattanapron Pongsanguan</p><br>
+                <h1>ID: 60010865</h1><br>
+              </div>
+              <div class="col-md-12 section4">
+                <i class="fas fa-phone-alt " aria-hidden="true" data-toggle="popover" data-trigger="hover"
+                  data-placement="bottom" title="Tel." data-content="084-914-3344"></i>
+                <i class="fa fa-envelope" aria-hidden="true" data-toggle="popover" data-trigger="hover"
+                  data-placement="bottom" title="E-mail" data-content="60010865@kmitl.ac.th"></i>
+                <i class="fas fa-home" aria-hidden="true" data-toggle="popover" data-trigger="hover"
+                  data-placement="bottom" title="Address"
+                  data-content="73/513 ถ.บางกรวย-ไทรน้อย ต.ไทรน้อย อ.ไทรน้อย จ.นนทบุรี 11150"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- section 'FERN' -->
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="row section-info ourTeam-box text-center">
+              <div class="col-md-12 section1">
+                <img src="fern.png">
+              </div>
+              <div class="col-md-12 section2">
+                <p>Woranidtha Krungseanmuang</p><br>
+                <h1>ID: 60010891</h1><br>
+              </div>
+              <div class="col-md-12 section4">
+                <i class="fas fa-phone-alt" aria-hidden="true" data-toggle="popover" data-trigger="hover"
+                  data-placement="bottom" title="Tel." data-content="093-432-7236"></i>
+                <i class="fa fa-envelope" aria-hidden="true" data-toggle="popover" data-trigger="hover"
+                  data-placement="bottom" title="E-mail" data-content="60010891@kmitl.ac.th"></i>
+                <i class="fas fa-home" aria-hidden="true" data-toggle="popover" data-trigger="hover"
+                  data-placement="bottom" title="Address" data-content="502/103 ต.คูคต อ.​ลำลูกกา จ.ปทุมธานี 12130"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- section Advisor -->
+          <div class="col-md-4 col-sm-4 col-xs-12">
+            <div class="row section-danger ourTeam-box text-center">
+              <div class="col-md-12 section1">
+                <img src="ajbun.png">
+              </div>
+              <div class="col-md-12 section2">
+                <p>Assoc.Prof. Boonchana Purahong</p><br>
+                <h1>Thesis Advisor</h1><br>
+              </div>
+              <div class="col-md-12 section4">
+                <br>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- line -->
+    <!-- <hr > -->
+
+    <!-- Footer -->
+    <footer class="page-footer font-small teal pt-4 footer mt-auto py-3 bg-light footer-style">
+
+      <!-- Footer Text -->
+      <div class="container-fluid text-center text-md-left">
+
+        <!-- Grid row -->
+        <div class="row">
+
+          <!-- Grid column -->
+          <div class="col-md-6 mt-md-0 mt-3">
+
+            <!-- Content -->
+            <h6>King Mongkut's Institute of Technology Ladkrabang</h6>
+            <p>
+              No.1, Soi Chalongkrung 1, Chalongkrung Road,<br>
+              Ladkrabang, Bangkok, 10520
+            </p>
+
+          </div>
+          <!-- Grid column -->
+
+          <hr class="clearfix w-100 d-md-none pb-3">
+
+          <!-- Grid column -->
+          <div class="col-md-6 mb-md-0 mb-3">
+
+            <!-- Content -->
+            <h6 class="text-right">Eggs Counting System by Image Processing</h6>
+            <p class="text-right"> Information Engineering </p>
+
+          </div>
+          <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+      </div>
+      <!-- Footer Text -->
+
+    </footer>
+    <!-- Footer -->
+
+    <script>
+      $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
+      });
+    </script>
+
+</body>
+
+</html>
