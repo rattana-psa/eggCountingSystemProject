@@ -2,12 +2,6 @@ var yearSelect = 0;
 
 var dataSum = 0;
 
-let listData = [];
-let listEgg0 = [];
-let listEgg1 = [];
-let listEgg2 = [];
-let listEgg3 = [];
-
 window.onload = function () {
 
     var today = new Date();
@@ -197,12 +191,9 @@ function addToArray(nameList, obj) {
 }
 
 function creatTable() {
-    let table = document.querySelector("table");
-    let data = Object.keys(listData[0]);
-    let number_0 = 0;
-    let number_1 = 0;
-    let number_2 = 0;
-    let number_3 = 0;
+    let table = document.querySelector("table");    // id: table
+    let data = Object.keys(listData[0]);    // title head
+    
     generateTableHead(table, data);
     generateTable(table, listData);
 }
@@ -223,10 +214,28 @@ function generateTableHead(table, data) {
 function generateTable(table, data) {
     for (let element of data) {
         let row = table.insertRow();
-        for (key in element) {
+        for (key in element) { 
+                   
             let cell = row.insertCell();
             let text = document.createTextNode(element[key]);
             cell.appendChild(text);
+
+            // let text = document.createTextNode(element[key]);
+
+            // if ( key == 'count' ) {
+
+            //     let th = document.createElement("th");                
+            //     th.appendChild(text);  
+            //     let cell = row.insertCell();            
+            //     cell.appendChild(th);  
+
+            // } else {
+
+            //     let cell = row.insertCell();            
+            //     cell.appendChild(text);
+
+            // }     
+
         }
     }
 }
@@ -241,10 +250,7 @@ async function getTable(month) {
     document.getElementById("table").innerHTML = "";
     document.getElementById("notiError").innerHTML = "";
     listData = [];
-    // listEgg0 = [];
-    // listEgg1 = [];
-    // listEgg2 = [];
-    // listEgg3 = [];
+
 
     refe = "countEgg/keep/" + yearSelect + '/';
     refData = refe + month;
@@ -288,8 +294,6 @@ async function getTable(month) {
 }
 
 function creatObj(day, val){ 
-    // values = val;
-    // console.log('creasObj/val: ', val);
     
     let sumNo0 = 0;
     let sumNo1 = 0;
@@ -316,7 +320,7 @@ function creatObj(day, val){
             
         } else {
 
-            obj = { date: i, count: val[i].sum , 'egg no.0': val[i].no0, 'egg no.1': val[i].no1, 'egg no.2': val[i].no2, 'egg no.3': val[i].no3, } //************************************************ */
+            obj = { date: i, count: val[i].sum , 'egg no.0': val[i].no0, 'egg no.1': val[i].no1, 'egg no.2': val[i].no2, 'egg no.3': val[i].no3, }
             
             sumCount += val[i].sum;
 
