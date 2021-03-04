@@ -2,7 +2,7 @@ var yearSelect = 0;
 
 var dataSum = 0;
 
-window.onload = function () {
+window.onload = function() {
 
     var today = new Date();
     // var day = String(today.getDate());
@@ -11,9 +11,10 @@ window.onload = function () {
 
     yearSelect = year;
 
-    setInterval(async function () {
+    setInterval(async function() {
         realtimeData().then(snapshot => {
             // document.getElementById("showDataRealtime").innerHTML = ` ${snapshot.sum} <br> date: ${snapshot.date} time: ${snapshot.time} `;
+            $('#loading').hide();
             document.getElementById("showDataRealtime").innerHTML = snapshot.sum;
             document.getElementById("showTime").innerHTML = `Date : ${snapshot.date} Time : ${snapshot.time}`;
             document.getElementById("showEgg_0").innerHTML = `NO.0 : ${snapshot.egg_0}`;
@@ -22,7 +23,7 @@ window.onload = function () {
             document.getElementById("showEgg_3").innerHTML = `NO.3 : ${snapshot.egg_3}`;
 
             console.log(yearSelect);
-            
+
         });
     }, 3500);
 
@@ -45,7 +46,7 @@ async function realtimeData() {
     let values = firebaseRef.toJSON();
 
     const sum = values.sum;
-    
+
     const timeData = values.time.split('T');
     const date = timeData[0];
     const time = timeData[1]; //.split('.')[0];
@@ -68,7 +69,7 @@ async function realtimeData() {
 // if password correct will 'saveData' to firebase
 function saveData() {
     var today = new Date();
-    var day = String(today.getDate());  //.padStart(2, '0');
+    var day = String(today.getDate()); //.padStart(2, '0');
     var month = String(today.getMonth() + 1); //.padStart(2, '0'); //January is 0!
     var year = today.getFullYear();
 
@@ -116,8 +117,7 @@ async function signIn() {
         setZeroToday();
         alert('SAVE COMPLETE ! !');
         clearText('wrongPassword');
-    }
-    catch (error) {
+    } catch (error) {
         // alert(error.code);
         document.getElementById("wrongPassword").innerHTML = 'password wrong!!';
     }
@@ -147,12 +147,10 @@ async function forgotPassword() {
         const res = await firebase.auth().sendPasswordResetEmail(emailAddress);
         console.log('send email for reset password');
         alert('Please check E-mail for reset password');
-    }
-    catch (error) {
+    } catch (error) {
         document.getElementById("wrongEmail").innerHTML = 'email wrong!!';
         // document.getElementById("showDataRealtime").innerHTML = snapshot.sum;
-    }
-    finally {
+    } finally {
         clearField('inputMail');
         clearText('wrongEmail');
     }
@@ -191,11 +189,13 @@ function addToArray(nameList, obj) {
 }
 
 function creatTable() {
-    let table = document.querySelector("table");    // id: table
-    let data = Object.keys(listData[0]);    // title head
-    
+    let table = document.querySelector("table"); // id: table
+    let data = Object.keys(listData[0]); // title head
+
+    $('#loading-table').hide();
     generateTableHead(table, data);
     generateTable(table, listData);
+
 }
 
 // creat head from key of listData[0]
@@ -214,8 +214,8 @@ function generateTableHead(table, data) {
 function generateTable(table, data) {
     for (let element of data) {
         let row = table.insertRow();
-        for (key in element) { 
-                   
+        for (key in element) {
+
             let cell = row.insertCell();
             let text = document.createTextNode(element[key]);
             cell.appendChild(text);
@@ -240,7 +240,7 @@ function generateTable(table, data) {
     }
 }
 
-function showName(name){
+function showName(name) {
     name = name + ' ' + yearSelect;
     document.getElementById("nameMonth").innerHTML = name;
 }
@@ -258,10 +258,10 @@ async function getTable(month) {
     console.log('refData: ', refData);
     let values = firebaseRef.toJSON();
 
-    var sumVal = [];  //change from int to return array
+    var sumVal = []; //change from int to return array
 
     console.log('getTable/values: ', values);
-    
+
     if (values) {
 
         if (month == 2) {
@@ -279,13 +279,12 @@ async function getTable(month) {
         }
 
         sumValShow = { name: 'sum', count: sumVal[0], 'egg no.0': sumVal[1], 'egg no.1': sumVal[2], 'egg no.2': sumVal[3], 'egg no.3': sumVal[4] }
-        
+
         addToArray(listData, sumValShow);
         console.log('list:', listData);
         creatTable();
 
-    }
-    else {
+    } else {
 
         document.getElementById("notiError").innerHTML = ("Don't Have Data in This Month");
 
@@ -293,12 +292,12 @@ async function getTable(month) {
 
 }
 
-function creatObj(day, val){ 
-    
+function creatObj(day, val) {
+
     let sumNo0 = 0;
     let sumNo1 = 0;
     let sumNo2 = 0;
-    let sumNo3 = 0;   
+    let sumNo3 = 0;
     let sumCount = 0;
 
     for (let i = 1; i <= day; i++) {
@@ -311,24 +310,24 @@ function creatObj(day, val){
             isAdded = true;
         }
 
-        if(isAdded) return;
+        if (isAdded) return;
 
         if (val[i] == undefined) {
 
             obj = { date: i, count: 0, 'egg no.0': 0, 'egg no.1': 0, 'egg no.2': 0, 'egg no.3': 0, }
             addToArray(listData, obj);
-            
+
         } else {
 
-            obj = { date: i, count: val[i].sum , 'egg no.0': val[i].no0, 'egg no.1': val[i].no1, 'egg no.2': val[i].no2, 'egg no.3': val[i].no3, }
-            
+            obj = { date: i, count: val[i].sum, 'egg no.0': val[i].no0, 'egg no.1': val[i].no1, 'egg no.2': val[i].no2, 'egg no.3': val[i].no3, }
+
             sumCount += val[i].sum;
 
             sumNo0 += val[i].no0;
             sumNo1 += val[i].no1;
             sumNo2 += val[i].no2;
             sumNo3 += val[i].no3;
-                        
+
             addToArray(listData, obj);
 
         }
@@ -341,7 +340,7 @@ function creatObj(day, val){
     return sumAll;
 }
 
-function changeYear(yr){
+function changeYear(yr) {
     yearSelect = yr;
     document.getElementById("table").innerHTML = "";
     listData = [];
