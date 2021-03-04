@@ -19,10 +19,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
     <!--Bootsrap 4 CDN-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <!--Fontawesome CDN-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+        integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/e939980574.js" crossorigin="anonymous"></script>
 
     <script type="text/javascript" src="app.js"></script>
@@ -78,14 +80,19 @@
                     <div class="row">
                         <div class="col">
                             <div class="row">
-                                <div class="col-md-7 col-sm-6 col-xs-6">
+                                <div class="col-md-7 col-sm-6 col-xs-6 text-center">
                                     <br>
                                     <h1 class="display-3 text-center">Counting Eggs</h1>
-                                    <div class="loader-index" id="loading"></div>
+                                    <div id="loading">
+                                        <br>
+                                        <div class="spinner-border" style="width: 6rem; height: 6rem;" role="status" ></div>
+                                        <br><br>
+                                    </div>
                                     <h1 class="display-1 text-center" id="showDataRealtime"></h1>
                                     <h4 class="text-center" id="showTime">Date : dd-mm-yyyy Time : 00:00:00</h4>
                                     <div class="text-center pt-4">
-                                        <button type="button" class="btn btn-outline-danger btn-lg" id="buttonSave" data-toggle="modal" data-target="#myModal">Finish Day</button><br><br><br>
+                                        <button type="button" class="btn btn-outline-danger btn-lg" id="buttonSave"
+                                            data-toggle="modal" data-target="#myModal">Finish Day</button><br><br><br>
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-sm-6 col-xs-6 align-self-center border-left text-center">
@@ -112,7 +119,8 @@
                         <!-- Modal Header -->
                         <div class="modal-header">
                             <h4 class="modal-title">Save Data Today</h4>
-                            <button type="button" onclick="clearField('pwd'),clearText('wrongPassword')" class="close" data-dismiss="modal">&times;</button>
+                            <button type="button" onclick="clearField('pwd'),clearText('wrongPassword')" class="close"
+                                data-dismiss="modal">&times;</button>
                         </div>
 
                         <!-- Modal body -->
@@ -122,14 +130,16 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-key"></i></span>
                                 </div>
-                                <input type="password" class="form-control" placeholder="password" name="pwd" id="pwd" onfocus="this.value=''">
+                                <input type="password" class="form-control" placeholder="password" name="pwd" id="pwd"
+                                    onfocus="this.value=''">
                             </div>
 
                             <p class="text-danger text-center" id="wrongPassword"></p>
 
                             <div class="d-flex justify-content-center">
                                 <!-- <a href="modalForgotPassword">forgot password?</a> -->
-                                <button type="button" class="btn btn-link" id="buttonSave" data-toggle="modal" data-dismiss="modal" data-target="#modalForgotPassword">forgot password?</button>
+                                <button type="button" class="btn btn-link" id="buttonSave" data-toggle="modal"
+                                    data-dismiss="modal" data-target="#modalForgotPassword">forgot password?</button>
                             </div>
 
                         </div>
@@ -140,8 +150,10 @@
                                 <p class="text-danger">*after saving data will be reset</p>
                             </div>
                             <div>
-                                <button type="button" class="btn btn-outline-primary" onclick="signIn(),clearField('pwd')">Submit</button>
-                                <button type="button" class="btn btn-outline-dark" data-dismiss="modal" onclick="clearField('pwd'),clearText('wrongPassword')">Cancel</button>
+                                <button type="button" class="btn btn-outline-primary"
+                                    onclick="signIn(),clearField('pwd')">Submit</button>
+                                <button type="button" class="btn btn-outline-dark" data-dismiss="modal"
+                                    onclick="clearField('pwd'),clearText('wrongPassword')">Cancel</button>
                             </div>
                         </div>
 
@@ -158,7 +170,8 @@
                         <!-- Modal Header -->
                         <div class="modal-header">
                             <h4 class="modal-title">Forgot Password</h4>
-                            <button type="button" class="close" data-dismiss="modal" onclick="clearField('inputMail'),clearText('wrongEmail')">&times;</button>
+                            <button type="button" class="close" data-dismiss="modal"
+                                onclick="clearField('inputMail'),clearText('wrongEmail')">&times;</button>
                         </div>
 
                         <!-- Modal body -->
@@ -168,7 +181,8 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-envelope"></i></span>
                                 </div>
-                                <input type="email" class="form-control" placeholder="Please Enter E-mail" name="mail" id="inputMail" onfocus="this.value=''">
+                                <input type="email" class="form-control" placeholder="Please Enter E-mail" name="mail"
+                                    id="inputMail" onfocus="this.value=''">
                             </div>
 
                             <p class="text-danger text-center" id="wrongEmail"></p>
@@ -177,9 +191,11 @@
 
                         <!-- Modal footer -->
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-primary" onclick="checkEmail(),clearField('inputMail')">Send
-                Email</button>
-                            <button type="button" class="btn btn-outline-dark" data-dismiss="modal" onclick="clearField('inputMail'),clearText('wrongEmail')">Cancel</button>
+                            <button type="button" class="btn btn-outline-primary"
+                                onclick="checkEmail(),clearField('inputMail')">Send
+                                Email</button>
+                            <button type="button" class="btn btn-outline-dark" data-dismiss="modal"
+                                onclick="clearField('inputMail'),clearText('wrongEmail')">Cancel</button>
                         </div>
 
                     </div>
@@ -203,22 +219,35 @@
 
                         <label for="dropdownMonth" id="yearSelected">select month : </label>
 
-                        <button id="dropdownMonth" class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              MONTH
-            </button>
+                        <button id="dropdownMonth" class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            MONTH
+                        </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMonth" id="dropdownMenu">
-                            <button class="dropdown-item" type="button" id="month1" onclick="getTable(1),showName('January')">January</button>
-                            <button class="dropdown-item" type="button" id="month2" onclick="getTable(2),showName('February')">February</button>
-                            <button class="dropdown-item" type="button" id="month3" onclick="getTable(3),showName('March')">March</button>
-                            <button class="dropdown-item" type="button" id="month4" onclick="getTable(4),showName('April')">April</button>
-                            <button class="dropdown-item" type="button" id="month5" onclick="getTable(5),showName('May')">May</button>
-                            <button class="dropdown-item" type="button" id="month6" onclick="getTable(6),showName('June')">June</button>
-                            <button class="dropdown-item" type="button" id="month7" onclick="getTable(7),showName('July')">July</button>
-                            <button class="dropdown-item" type="button" id="month8" onclick="getTable(8),showName('August')">August</button>
-                            <button class="dropdown-item" type="button" id="month9" onclick="getTable(9),showName('September')">September</button>
-                            <button class="dropdown-item" type="button" id="month10" onclick="getTable(10),showName('October')">October</button>
-                            <button class="dropdown-item" type="button" id="month11" onclick="getTable(11),showName('November')">November</button>
-                            <button class="dropdown-item" type="button" id="month12" onclick="getTable(12),showName('December')">December</button>
+                            <button class="dropdown-item" type="button" id="month1"
+                                onclick="getTable(1),showName('January')">January</button>
+                            <button class="dropdown-item" type="button" id="month2"
+                                onclick="getTable(2),showName('February')">February</button>
+                            <button class="dropdown-item" type="button" id="month3"
+                                onclick="getTable(3),showName('March')">March</button>
+                            <button class="dropdown-item" type="button" id="month4"
+                                onclick="getTable(4),showName('April')">April</button>
+                            <button class="dropdown-item" type="button" id="month5"
+                                onclick="getTable(5),showName('May')">May</button>
+                            <button class="dropdown-item" type="button" id="month6"
+                                onclick="getTable(6),showName('June')">June</button>
+                            <button class="dropdown-item" type="button" id="month7"
+                                onclick="getTable(7),showName('July')">July</button>
+                            <button class="dropdown-item" type="button" id="month8"
+                                onclick="getTable(8),showName('August')">August</button>
+                            <button class="dropdown-item" type="button" id="month9"
+                                onclick="getTable(9),showName('September')">September</button>
+                            <button class="dropdown-item" type="button" id="month10"
+                                onclick="getTable(10),showName('October')">October</button>
+                            <button class="dropdown-item" type="button" id="month11"
+                                onclick="getTable(11),showName('November')">November</button>
+                            <button class="dropdown-item" type="button" id="month12"
+                                onclick="getTable(12),showName('December')">December</button>
                         </div>
 
                         <p id="nameMonth" class="text-center"></p>
@@ -230,7 +259,9 @@
                         <div class="row">
                             <div class="col-3"></div>
                             <div class="col">
-                                <div class="loader" id="loading-table"></div>
+                                <div class="text-center" id="loading-table">
+                                    <div class="spinner-border" style="width: 7rem; height: 7rem;" role="status"></div>
+                                </div>
                                 <table class="table table-bordered text-center" id="table"></table>
                             </div>
                             <div class="col-3"></div>
@@ -259,9 +290,14 @@
                                 <h1>ID: 60010865</h1><br>
                             </div>
                             <div class="col-md-12 section4">
-                                <i class="fas fa-phone-alt " aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="bottom" title="Tel." data-content="084-914-3344"></i>
-                                <i class="fa fa-envelope" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="bottom" title="E-mail" data-content="60010865@kmitl.ac.th"></i>
-                                <i class="fas fa-home" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="bottom" title="Address" data-content="73/513 ถ.บางกรวย-ไทรน้อย ต.ไทรน้อย อ.ไทรน้อย จ.นนทบุรี 11150"></i>
+                                <i class="fas fa-phone-alt " aria-hidden="true" data-toggle="popover"
+                                    data-trigger="hover" data-placement="bottom" title="Tel."
+                                    data-content="084-914-3344"></i>
+                                <i class="fa fa-envelope" aria-hidden="true" data-toggle="popover" data-trigger="hover"
+                                    data-placement="bottom" title="E-mail" data-content="60010865@kmitl.ac.th"></i>
+                                <i class="fas fa-home" aria-hidden="true" data-toggle="popover" data-trigger="hover"
+                                    data-placement="bottom" title="Address"
+                                    data-content="73/513 ถ.บางกรวย-ไทรน้อย ต.ไทรน้อย อ.ไทรน้อย จ.นนทบุรี 11150"></i>
                             </div>
                         </div>
                     </div>
@@ -277,9 +313,14 @@
                                 <h1>ID: 60010891</h1><br>
                             </div>
                             <div class="col-md-12 section4">
-                                <i class="fas fa-phone-alt" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="bottom" title="Tel." data-content="093-432-7236"></i>
-                                <i class="fa fa-envelope" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="bottom" title="E-mail" data-content="60010891@kmitl.ac.th"></i>
-                                <i class="fas fa-home" aria-hidden="true" data-toggle="popover" data-trigger="hover" data-placement="bottom" title="Address" data-content="502/103 ต.คูคต อ.​ลำลูกกา จ.ปทุมธานี 12130"></i>
+                                <i class="fas fa-phone-alt" aria-hidden="true" data-toggle="popover"
+                                    data-trigger="hover" data-placement="bottom" title="Tel."
+                                    data-content="093-432-7236"></i>
+                                <i class="fa fa-envelope" aria-hidden="true" data-toggle="popover" data-trigger="hover"
+                                    data-placement="bottom" title="E-mail" data-content="60010891@kmitl.ac.th"></i>
+                                <i class="fas fa-home" aria-hidden="true" data-toggle="popover" data-trigger="hover"
+                                    data-placement="bottom" title="Address"
+                                    data-content="502/103 ต.คูคต อ.​ลำลูกกา จ.ปทุมธานี 12130"></i>
                             </div>
                         </div>
                     </div>
@@ -351,7 +392,7 @@
         <!-- Footer -->
 
         <script>
-            $(document).ready(function() {
+            $(document).ready(function () {
                 $('[data-toggle="popover"]').popover();
             });
         </script>
